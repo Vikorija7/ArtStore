@@ -1,0 +1,41 @@
+@model ArtStore.Models.Painting
+
+@{
+    ViewData["Title"] = "Детали";
+    var photoPath = "~/pictures/" + (Model.Picture);
+}
+
+
+<div style="text-align: left;">
+    <span style="float:right;">
+        <img src="@photoPath"
+             height="300" width="180"
+             asp-append-version="true" />
+        <p>
+            @Html.DisplayFor(model => model.ReleaseDate) &ensp;
+        </p>
+        <p><strong>Цена: </strong>@Html.DisplayFor(model => model.Price) денари</p>
+    </span>
+    <p style="text-align: center; font-size: larger; font-weight:bold;">@Html.DisplayFor(model => model.Title)</p>
+    <p>
+        <strong>Автор:</strong> <a asp-controller="Painter" asp-action="Details" asp-route-id="@Model.PainterID">
+            @Html.DisplayFor(model => model.Painter.FullName)
+        </a>
+    </p>
+
+    <p>
+        <strong>Оригинален наслов:</strong>  @Html.DisplayFor(model => model.OriginalTitle) &ensp;        
+    </p>
+    <p>@Html.DisplayFor(model => model.Description)</p>
+    <p>
+        <button class="btn btn-default" type="submit" style="box-sizing: border-box; background-color: orange; "><a style="font-weight: bold; color: white;"  asp-action="Order" asp-route-id="@Model.PaintingID">Порачај</a></button> 
+    </p>
+</div>
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.PaintingID">Измени</a> |
+        
+        <a asp-action="Index">Назад</a>
+    </div>
+}

@@ -1,0 +1,34 @@
+@model ArtStore.Models.Painter
+
+@{
+    ViewData["Title"] = "Детали";
+    var photoPath = "~/pictures/" + (Model.Picture);
+}
+
+<div style="text-align: left;">
+    <span style="float:right;">
+        <img src="@photoPath"
+             height="300" width="180"
+             asp-append-version="true" />
+    </span>
+    <p style="text-align: center;font-size: larger; font-weight:bold; "> @Html.DisplayFor(model => model.FullName)</p>
+    <p><strong> Дата на раѓање: </strong>@Html.DisplayFor(model => model.DateofBirth)</p>
+    @if (Model.DateofDeath != null)
+    {
+        <p> <strong>Дата на умирање: </strong>@Html.DisplayFor(model => model.DateofDeath)</p>
+    }
+    <p>@Html.DisplayFor(model => model.Biography)</p>
+    
+    <p>
+        <a asp-controller="Painter" asp-action="MyPaintings" asp-route-id="@Model.PainterID">
+            <strong>Уметнички дела</strong>
+        </a>: @Html.DisplayFor(model => model.Paintings)
+    </p>
+</div>
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.PainterID">Измени</a> |
+        <a asp-action="Index">Назад</a>
+    </div>
+}

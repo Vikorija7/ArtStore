@@ -1,0 +1,76 @@
+@model ArtStore.Models.Painting
+
+@{
+    ViewData["Title"] = "Внеси ново";
+}
+
+<h1>Внеси ново</h1>
+
+<h4>Уметничко дело</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+              <div class="form-group">
+                <label asp-for="Picture" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="Picture" type="file" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Избери слика</label>
+                </div>
+                <span asp-validation-for="Picture" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OriginalTitle" class="control-label"></label>
+                <input asp-for="OriginalTitle" class="form-control" />
+                <span asp-validation-for="OriginalTitle" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <input asp-for="Category" class="form-control" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+             <div class="form-group">
+                <label asp-for="ReleaseDate" class="control-label"></label>
+                <input asp-for="ReleaseDate" class="form-control" />
+                     <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Painter" class="control-label"></label>
+                <select asp-for="PainterID" class="form-control" asp-items="ViewBag.PainterID">
+                    <option value="">-- Избери Сликар --</option>
+                </select>
+                <span asp-validation-for="PainterID" class="text-danger" />
+            </div>
+                       
+            <div class="form-group">
+                <input type="submit" value="Креирај" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Назад</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
